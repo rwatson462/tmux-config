@@ -2,11 +2,10 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-ROOT_DIR="$(dirname "$SCRIPT_DIR")"
 
 # Get first project from config
-first_project_name=$(yq -r '.projects[0].name' "$ROOT_DIR/config/projects.yml")
-first_project_path=$(yq -r '.projects[0].path' "$ROOT_DIR/config/projects.yml")
+first_project_name=$(yq -r '.projects[0].name' "$SCRIPT_DIR/projects.yml")
+first_project_path=$(yq -r '.projects[0].path' "$SCRIPT_DIR/projects.yml")
 session_name=$(echo "$first_project_name" | tr '.:' '_')
 
 # Create session if needed
@@ -15,5 +14,5 @@ if ! tmux has-session -t "$session_name" 2>/dev/null; then
 fi
 
 # Source config and attach
-tmux source-file "$ROOT_DIR/tmux/tmux.conf"
+tmux source-file "$SCRIPT_DIR/tmux.conf"
 exec tmux attach-session -t "$session_name"

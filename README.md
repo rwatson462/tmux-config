@@ -30,7 +30,7 @@ brew install tmux fzf yq
 ## Usage
 
 ```bash
-./bin/workspace
+./workspace
 ```
 
 | Key | Action |
@@ -42,7 +42,7 @@ brew install tmux fzf yq
 
 ## Configure
 
-Edit `config/projects.yml`:
+Edit `projects.yml`:
 
 ```yaml
 projects:

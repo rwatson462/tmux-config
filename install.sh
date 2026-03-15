@@ -52,8 +52,8 @@ elif [[ -e "$WORKSPACE_LINK" ]]; then
     exit 1
 fi
 
-ln -s "$SCRIPT_DIR/bin/workspace" "$WORKSPACE_LINK"
-echo "Created symlink: $WORKSPACE_LINK -> $SCRIPT_DIR/bin/workspace"
+ln -s "$SCRIPT_DIR/workspace" "$WORKSPACE_LINK"
+echo "Created symlink: $WORKSPACE_LINK -> $SCRIPT_DIR/workspace"
 
 echo ""
 
@@ -73,4 +73,4 @@ echo "Usage:"
 echo "  workspace    # Start the terminal workspace"
 echo ""
 echo "Configure your projects in:"
-echo "  $SCRIPT_DIR/config/projects.yml"
+echo "  $SCRIPT_DIR/projects.yml"
