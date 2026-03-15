@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# Project selector for terminal workspace
+# Runs in a popup and switches between project sessions
+
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT_DIR="$(dirname "$SCRIPT_DIR")"
+CONFIG_FILE="$ROOT_DIR/config/projects.yml"
+
+# Session name sanitizer (tmux doesn't like certain characters)
+sanitize_session_name() {
+    echo "$1" | tr '.:' '_'
+}
+
+# Get projects and let user select
+projects=$(yq -r '.projects[] | "\(.name)|\(.path)"' "$CONFIG_FILE")
+
+selection=$(echo "$projects" | \
+    awk -F'|' '{print $1}' | \
+    fzf --height=100% \
+        --layout=reverse \
+        --border \
+        --prompt="Project: " \
+        --pointer="▶" \
+        --color="bg+:#313244,fg+:#f5c2e7,pointer:#89b4fa,prompt:#89b4fa" \
+        --bind="j:down,k:up" \
+    ) || true
+
+if [[ -n "$selection" ]]; then
+    session_name=$(sanitize_session_name "$selection")
+    project_path=$(echo "$projects" | grep "^$selection|" | cut -d'|' -f2)
+
+    # Create session if needed
+    if ! tmux has-session -t "$session_name" 2>/dev/null; then
+        tmux new-session -d -s "$session_name" -c "$project_path"
+    fi
+
+    # Switch to it
+    tmux switch-client -t "$session_name"
+fi

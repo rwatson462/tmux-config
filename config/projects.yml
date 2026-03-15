@@ -1,0 +1,18 @@
+# Terminal Workspace Project Configuration
+#
+# Add your projects here. Each project needs:
+#   - name: Display name shown in the selector
+#   - path: Full path to the project directory
+#
+# Example:
+#   projects:
+#     - name: "my-app"
+#       path: "/path/to/my-app"
+
+projects:
+  - name: "terminal-view"
+    path: "/Volumes/T9/Developer/vibes/terminal-view"
+  - name: "markdown-viewer"
+    path: "/Volumes/T9/Developer/vibes/markdown-viewer"
+  - name: "openspec-studio"
+    path: "/Volumes/T9/Developer/vibes/openspec/openspec-studio"
