@@ -49,3 +49,11 @@ projects:
   - name: "my-app"
     path: "/path/to/my-app"
 ```
+
+## Ghostty
+
+For Shift+Enter to work in Claude Code, add to `~/.config/ghostty/config`:
+
+```
+keybind = shift+enter=text:\x1b[13;2u
+```
